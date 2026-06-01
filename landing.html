@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Green Horizon | Home</title>
+        <link rel="icon" type="image/png" href="img/GHLOGO.png">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+        <style>
+            /* GENERAL */
+            
+            body {
+                background-color: #f7fdf7;
+                /* FONT APPLIED: Poppins */
+                font-family: 'Poppins', sans-serif;
+                color: #333;
+                scroll-behavior: smooth;
+            }
+            .h2 {
+                color: #1b5e20;
+                font-weight: 600;
+                text-align:justify;
+                margin-bottom: 1.5rem;
+            }
+            /* NAVBAR */
+            .navbar {
+                background-color: #2e7d32;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                font-weight: bold;
+            }
+            .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+            }
+            .navbar .btn-outline-light {
+                border: 2px solid white;
+                border-radius: 30px;
+                transition: 0.3s;
+            }
+            .navbar .btn-outline-light:hover {
+                background-color: white;
+                color: #2e7d32;
+            }
+        /* Hover dropdown effect for desktop */
+        @media (min-width: 992px) {
+            .navbar-nav .nav-item .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            }
+
+            .navbar-nav .nav-item .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #a8e063;
+            transition: width 0.3s;
+            }
+
+            .navbar-nav .nav-item .nav-link:hover::after {
+            width: 100%;
+            }
+
+            .navbar-nav .nav-item .nav-link:hover {
+            color: #a8e063 !important;
+            }
+        }
+
+        /* Smooth dropdown toggle animation for mobile */
+        .navbar-collapse {
+            transition: all 0.4s ease-in-out;
+        }
+            /* HERO SECTION (Video Background + Shrink on Scroll) */
+            .hero {
+                position: relative;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                text-align: center;
+                transition: height 0.5s ease;
+            }
+            .hero.shrink {
+                height: 60vh; /* height shrinks on scroll */
+            }
+            .hero video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+                z-index: 0;
+                transform: translate(-50%, -50%);
+                object-fit: cover;
+            }
+            .hero::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+                z-index: 1;
+            }
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                max-width: 1300px;
+                padding: 0 20px;
+            }
+            .hero-content h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-top: 9rem;
+                margin-bottom: 3.5rem;
+                transition: font-size 0.5s ease;
+            }
+            .hero.shrink .hero-content h1 {
+                font-size: 2rem; /* smaller heading when scrolled */
+            }
+            .hero-content p {
+                font-size: 2rem;
+                line-height: 1.5;
+                transition: font-size 0.5s ease;
+                max-width: 1300px;
+                margin-bottom: 8rem;
+                text-align: center;
+            }
+            .hero.shrink .hero-content p {
+                font-size: 1rem; /* smaller paragraph when scrolled */
+            }
+
+            /* Hero Get Started Button */
+            .hero-content .btn {
+                background-color: #2e7d32;
+                border: none;
+                border-radius: 30px;
+                padding: 15px 35px;
+                margin-top: 1.8rem;
+                font-weight: 600;
+                transition: all 0.4s ease;
+                color: white;
+                font-size: 20px;
+            }
+            /* Gradient hover effect */
+            .hero-content .btn:hover {
+                background: linear-gradient(90deg, #56ab2f, #a8e063); /* green gradient */
+                transform: scale(1.05);
+                color: white;
+            }
+            .about-section {
+                background: linear-gradient(135deg, #f7fdf7 0%, #f7fdf7 100%);
+                padding: 100px 30px;
+                text-align: center;
+                }
+            .intro-h2 {
+                height: 100px;
+                color: #1b5e20;
+                font-size: 3.2rem;
+                font-weight: 700;
+                text-align: center;
+            }
+            .intro-text {
+                font-size: 1.3rem;
+                margin-bottom: 60px;
+                color: #333;
+                line-height: 1.8;
+                text-align:center;
+                max-width: 100%;
+            }
+            /* Problem Cards */
+            .problem-card {
+                border: none;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
+                border-radius: 0; /* square images */
+            }
+            .problem-card img {
+                width: 100%;
+                height: 250px;
+                object-fit: cover;
+                display: block;
+            }
+            .problem-card .card-body {
+                padding: 15px;
+                background-color: #f7fff7;
+            }
+            .problem-card h5 {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #1b5e20;
+                margin: 0;
+            }
+            .problem-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            }
+            /* Responsive */
+            @media (max-width: 992px) {
+                .problem-card img {
+                    height: 220px;
+            }
+            }
+            @media (max-width: 576px) {
+                .problem-card img {
+                height: 200px;
+            }
+            }
+            /* Responsive */
+            @media (max-width: 992px) {
+                .problem-card img {
+                    height: 220px;
+            }
+            }
+            @media (max-width: 576px) {
+                .problem-card img {
+                height: 200px;
+            }
+            }
+            /* Main About Us Content */
+            .about-main-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .about-main-content h2 {
+            font-size: 3rem;
+                font-weight: 700;
+                color: #1b5e20;
+                margin-bottom: 1.5rem;
+            }
+            .about-main-content p {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                color: #333;
+                margin-bottom: 1.5rem;
+            }
+            .about-text p {
+            font-size: 1.3rem;
+                line-height: 5;
+                color: #333;
+                line-height: 1.7;
+                max-width: 1200px;
+            }
+            .about-text-bottom p{
+                text-align:justify;
+                font-size: 25px;
+                margin-top: 1.5rem;
+                max-width: 1200px;
+            }
+            .about-main-content .about-img-col video {
+                transition: transform 0.4s ease;
+                max-height: 100%;
+            }
+            .about-main-content .about-img-col video:hover {
+                transform: scale(1.05);
+            }
+            /* Responsive */
+            @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-text h2 {
+                text-align: center;
+            }
+            .features-grid {
+                gap: 20px;
+            }
+            }
+            /* HOW IT WORKS / FEATURES SECTION ONLY */
+            .how-it-works {
+                background-color: #f1faf1;
+                padding: 180px 150px 80px; 
+            }
+            .how-it-works h2 {
+                text-align:justify;
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 3rem; /* space above feature boxes */
+            }
+            .how-it-works .container {
+                max-width: 1600px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            .feature-box {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                padding: 25px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 550px; /* fixed height */
+            }
+            .feature-box:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            }
+            .feature-box img {
+                width: 100%;
+                height: 250px; /* fixed size */
+                object-fit: cover;
+                border-radius: 15px;
+                margin-bottom: 20px;
+                transition: transform 0.3s ease;
+            }
+            .feature-box img:hover {
+                transform: scale(1.05);
+            }
+            .feature-box h5 {
+                font-size: 1.7rem; margin-bottom: 12px; font-weight: 700; 
+            }
+            .feature-box p {
+                font-size: 1.2rem; line-height: 1.6;
+            }
+            /* Responsive adjustments */
+            @media (max-width: 1400px) { .how-it-works { padding: 160px 100px 60px; } }
+            @media (max-width: 1200px) { .how-it-works { padding: 140px 80px 60px; } }
+            @media (max-width: 992px) { .how-it-works { padding: 120px 50px 50px; } }
+            @media (max-width: 768px) {
+                .how-it-works { padding: 120px 20px 60px; }
+                .feature-box { height: auto; }
+            }
+            /* WHY CHOOSE SECTION - UPDATED STYLE */
+            #why {
+                background: linear-gradient(135deg, #e8f5e9 0%, #c8efd0 100%);
+                padding: 300px 20px;
+                margin-bottom: 100px;
+                }
+            #why h2 {
+                text-align: center;
+                font-size: 2.8rem;
+                font-weight: 700;
+                margin-bottom: 4rem;
+                color: #1b5e20;
+            }
+            .why-img-wrapper img {
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+                transition: transform 0.4s ease;
+            }
+            .why-img-wrapper img:hover {
+                transform: scale(1.05);
+            }
+            /* Responsive adjustments */
+            @media (max-width: 992px) {
+            .why-cards {
+                    gap: 20px;
+            }
+            }
+            @media (max-width: 768px) {
+            #why h2 {
+                    font-size: 2.3rem;
+                    margin-bottom: 3rem;
+            }
+            }
+            /* PARTNERS */
+            #partners {
+                background-color: #f1faf1;
+                padding: 300px 20px;
+            }
+            #partners h2{
+                text-align: center;
+                font-size: 2.8rem;
+                font-weight: 700;
+                margin-bottom: 3rem;
+                color: #0a0a0a;
+            }
+            #partners p {
+                color: #333;
+                margin-bottom: 4rem;
+                font-size: larger;
+            }
+            #partners img {
+                transition: 0.5s ease;
+                height: 300px;
+                width: 300px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            #partners img:hover {
+                transition: transform 0.4s ease;
+                transform: scale(1.1) translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            .partner-card h6 {
+                margin: 0;
+                font-weight: 600;
+                color: #1b5e20;
+            }
+            .partner-card .role {
+                margin: 10;
+                font-size: 0.9rem;
+                color: #2e7d32;
+            }
+            /* JOIN */
+            .join-section {
+                background: linear-gradient(120deg, #d0f0d3 0%, #e8f5e9 100%);
+                padding: 300px 10px;
+                text-align: center;
+                color: #1b5e20;
+                position: relative;
+            }
+            .join-section h2{
+                text-align: center;
+                font-size: 2.8rem;
+                font-weight: 700;
+                margin-bottom: 4rem;
+                color: #1b5e20;
+            }
+            .join-section p {
+                color: #2e7d32;
+                font-size: 25px;
+                max-width: 1000px;
+                margin-top: 2rem;
+                margin: 0 auto 1.5rem;
+            }
+            .join-section .btn {
+                margin-top: 6rem;
+                background-color: #2e7d32;
+                border: none;
+                border-radius: 30px;
+                padding: 12px 40px;
+                transition: 0.3s;
+            }
+            .join-section .btn:hover {
+                background-color: #256928;
+                transform: scale(1.05);
+            }
+            /* CONTACT */
+            #contact {
+                background-color: #f1faf1;
+                padding: 250px 10px;
+            }
+            /* CONTACT SECTION */
+            #contact h2 {
+                font-size: 2.8rem;
+                font-weight: 700;
+                margin-top: 8.5rem;
+            }
+            #contact p {
+                font-size: 1.5rem;
+                line-height: 2.0;
+                margin-top: 2rem;
+                margin-bottom: 8rem;
+            }
+            #contact .social-icons a img {
+                width: 60px;
+                height: 60px;
+            }
+            /* Social icons hover effect */
+            .social-icons a img {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .social-icons a:hover img {
+                transform: scale(1.2);
+                box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4); /* greenish shadow */
+                border-radius: 10%; /* optional to make it rounded */
+            }
+            html {
+            scroll-behavior: smooth;
+            }
+            /* FOOTER */
+            footer {
+                background-color: #2e7d32;
+                color: white;
+                text-align: center;
+                padding: 1.3rem 0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark px-4 fixed-top">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/GHLOGO.png" alt="Logo" width="50" height="50" class="me-2 rounded-circle" />
+                Green Horizon
+            </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#how">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#why">Why Choose Us</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#partners">Partners</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#join">Join</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#contact">Contact</a></li>
+        <li class="nav-item ms-lg-3">
+            <a class="btn btn-outline-light" href="login_signup.html">Join Now!</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <a class="btn btn-outline-light" href="login_signup.html">Join Now!</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <video autoplay muted loop playsinline>
+                <source src="img/gh_vid_cover.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <h1>Play. Learn. Change the World.</h1>
+                <p>Welcome to Green Horizon — a movement where fun meets purpose.
+                    We believe that climate action should be engaging, inspiring, and accessible to everyone.
+                    Through our interactive platform, we turn environmental awareness into a game — where every
+                    challenge you complete helps heal the planet.
+                </p>
+                <a href="login_signup.html" class="btn btn-success">Get Started</a>
+            </div>
+        </section>
+        <br><br><br><br><br>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h1 class="intro-h2">OUR PLANET NEEDS YOU</h1>
+                <p class="intro-text">Our planet is facing urgent environmental challenges — from climate change and deforestation to plastic-filled oceans and vanishing wildlife. <br>
+                    <b>Every action counts, and the time to act is now.</b>
+                    Join us at <b>Green Horizon </b>to discover how you can make a real impact, learn through interactive experiences, and help build a greener, healthier future for all.</p>
+
+                <div class="problem-cards row justify-content-center g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/climatechange.png" alt="Climate Change" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Climate Change</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/deforestation.jpg" alt="Deforestation" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Deforestation</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/plasticpollution.png" alt="Plastic Pollution" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Plastic Pollution</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/oceanpollution.png" alt="Ocean Pollution" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Ocean Pollution</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/airpollution.jpg" alt="Air Pollution" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Air Pollution</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card problem-card">
+                            <img src="img/endagered.png" alt="Endangered Species" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Endangered Species</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br><br><br><br>
+
+        <section class="about-main-content py-5">
+            <div class="container">
+                <h2 class="mb-5" style="font-size: 3.2rem; text-align: left;">ABOUT US</h2>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6 mb-4 mb-lg-0 about-text">
+                        <p class="mb-4">
+                            <b>Green Horizon</b> was built by a passionate team of students, innovators, and earth advocates who 
+                                share one goal: to fight climate change through creativity and technology. 🌿
+                        </p>
+                        <p class="mb-4">
+                            We believe that real change starts with small, consistent actions. By combining gamified 
+                            learning and daily eco-reminders, we empower people of all ages to make sustainable choices in 
+                            their everyday lives.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-6 text-center about-img-col">
+                        <video autoplay muted loop playsinline class="img-fluid rounded shadow" style="max-width: 600px; width: 100%; height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.12);">
+                            <source src="img/about.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br><br>
+                    </div>
+                    <div class="about-text-bottom">
+                        <p>
+                            Our mission is not just to inform — but to <b>inspire</b>.
+                            We envision a world where protecting the planet becomes second nature.
+                            Every click, choice, and challenge brings us closer to a brighter, greener tomorrow.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how" class="how-it-works">
+            <div class="container">
+                <h2 class="text-center mb-10">How It Works</h2> <br><br>
+                <div class="row features-grid justify-content-center">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="feature-box">
+                            <img src="img/feature1.png" alt="Play Interactive Games" />
+                            <h5>Play Interactive Games</h5>
+                            <p>Explore fun and educational games that teach you about conservation and sustainability.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="feature-box">
+                            <img src="img/feature2.jpg" alt="Complete Eco-Challenges" />
+                            <h5>Complete Eco-Challenges</h5>
+                            <p>Take real-life actions like reducing plastic, saving water, or planting trees — and earn points for each task.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="feature-box">
+                            <img src="img/feature3.png" alt="Daily Reminders" />
+                            <h5>Daily Reminders</h5>
+                            <p>Stay on track with gentle, motivating notifications that remind you to make green choices every day.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="feature-box">
+                            <img src="img/feature4.jpg" alt="Track Your Progress" />
+                            <h5>Track Your Progress</h5>
+                            <p>See your personal impact and watch how your contributions add up to a global movement.</p>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <div>
+                    <h2 class="text-center">Every tap, every step, every small decision — they all matter.</h2>
+                </div>
+            </div>
+        </section>
+
+        <section id="why">
+            <div class="container">
+                <h2>Why Choose Green Horizon?</h2>
+                <div class="row align-items-center mt-5 gy-4">
+                    <div class="col-lg-6 col-md-12 text-center mb-4 mb-lg-0">
+                        <div class="why-img-wrapper">
+                            <img src="img/why.png" alt="Eco Learning" class="img-fluid rounded-4 shadow-sm" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <p class="why-text mb-4" style="font-size: 1.25rem; line-height: 1.8;">
+                            Because learning about climate change doesn’t have to be serious or boring.
+                            Green Horizon makes it interactive, rewarding, and fun. We bring together education, technology,
+                            and motivation to help people live sustainably — one mission at a time.
+                        </p>
+                        <p class="why-text mb-4" style="font-size: 1.25rem; line-height: 1.8;">
+                            Whether you’re just starting your eco-journey or already leading green initiatives,
+                            this platform helps you stay inspired and connected with others who share the same purpose.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners" class="text-center">
+            <div class="container">
+                <h2>Our Eco Partners</h2>
+                <p>We collaborate with organizations that share our vision for a sustainable future.</p>
+                <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 mt-4">
+                    <div class="partner-card text-center">
+                        <img src="img/NeriePerez.jpg" width="120" class="img-fluid rounded-circle mb-2">
+                        <h6>Nerie Anne Perez</h6>
+                        <p class="role">Leader</p>
+                    </div>
+
+                    <div class="partner-card text-center">
+                        <img src="img/AlyssaAdana.jpg" width="120" class="img-fluid rounded-circle mb-2">
+                        <h6>Alyssa Adana</h6>
+                        <p class="role">Member</p>
+                    </div>
+
+                    <div class="partner-card text-center">
+                        <img src="img/JellianAceSarsonas.jpeg" width="120" class="img-fluid rounded-circle mb-2">
+                        <h6>Jellian Ace Sarsonas</h6>
+                        <p class="role">Member</p>
+                    </div>
+
+                    <div class="partner-card text-center">
+                        <img src="img/DaveRodriguez.jpg" width="120" class="img-fluid rounded-circle mb-2">
+                        <h6>Daveace Rodriguez</h6>
+                        <p class="role">Member</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="join-section">
+            <div class="container">
+                <h2>Join the Movement</h2>
+                <p>Together, we can make the world greener — one action at a time.</p>
+                <p>Join our growing community of eco-warriors, play the games, and start your sustainable journey
+                    today.
+                    The horizon is green — and it begins with you. <br>
+                    Let’s make climate action a challenge worth winning. 🌿
+                </p>
+                <a href="login_signup.html" class="btn btn-success btn-lg rounded-pill shadow-sm">Join Now</a>
+            </div>
+        </section>
+
+        <section id="contact" class="text-center">
+            <div class="container">
+                <h2>Stay Connected</h2>
+                <p>Follow us for updates, eco-reminders, and global sustainability events.<br>
+                    Let's keep the momentum going, because everyday is another chance to <b>play for planet.</b><br><br>
+                </p>
+                <div class="social-icons d-flex justify-content-center align-items-center gap-4 mt-3">
+                    <a href="#" target="_blank">
+                        <img src="img/facebook.png" alt="Facebook" width="50" height="50">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="img/instagram.png" alt="Instagram" width="50" height="50">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="img/tiktok.png" alt="TikTok" width="50" height="50">
+                    </a>
+                    <a href="#" target="_blank">
+                        <img src="img/twitter.png" alt="X (Twitter)" width="50" height="50">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Green Horizon | Building a Greener Tomorrow</p>
+        </footer>
+
+        <script>
+            window.addEventListener('scroll', function() {
+                const hero = document.querySelector('.hero');
+                if (window.scrollY > 50) {
+                    hero.classList.add('shrink');
+                } else {
+                    hero.classList.remove('shrink');
+                }
+            });
+            const params = new URLSearchParams(window.location.search);
+            const deleted = params.get('deleted');
+
+            if (deleted === '1') {
+                alert("✅ Your account has been deleted successfully.");
+            } else if (deleted === '0') {
+                alert("❌ Failed to delete your account. Please try again.");
+            }
+        </script>
+    </body>
+</html>

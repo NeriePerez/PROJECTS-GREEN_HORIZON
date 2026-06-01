@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Green Horizon | Edit Post</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <style>
+            body {
+                background-color: #F9FAF8;
+                /* FONT APPLIED: Poppins */
+                font-family: 'Poppins', sans-serif;
+                padding-top: 70px;
+            }
+            .navbar {
+                background-color: #2E7D32;
+            }
+            .navbar-brand {
+                color: white !important;
+                font-weight: bold;
+            }
+            .edit-container {
+                max-width: 1080px;
+                margin: 3rem auto;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                padding: 2rem;
+            }
+            .photo-upload {
+                width: 150px;
+                height: 150px;
+                cursor: pointer;
+                font-size: 60px;
+                color: #2E7D32;
+                background-color: #F9FAF8;
+            }
+            .preview-images img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+            footer {
+                background-color: #2E7D32;
+                color: white;
+                text-align: center;
+                padding: 1rem 0;
+                margin-top: 3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark px-4 fixed-top">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="img/GHLOGO.png" alt="Logo" width="50" height="50" class="me-2 rounded-circle" />
+                Green Horizon | ADMIN
+            </a>
+        </nav>
+
+        <div class="edit-container">
+            <h4 class="fw-bold text-success mb-1">🌿 Tree Growing Program</h4>
+            <small class="text-muted d-block mb-3">Held on September 10, 2025 • Rizal Province</small>
+
+            <form id="editPostForm">
+                <div class="mb-3">
+                    <label for="caption" class="form-label fw-semibold">Caption</label>
+                    <textarea class="form-control" id="caption" rows="3" required>We successfully planted over 800 native trees! Thank you to all volunteers who joined this environmental movement. 🌳</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Uploaded Pictures</label>
+                    <div class="d-flex align-items-start gap-4 flex-wrap">
+                        <div id="uploadBox" class="photo-upload d-flex justify-content-center align-items-center border border-success rounded">
+                            +
+                        </div>
+                        <input type="file" id="images" accept="image/*" style="display: none;">
+                        <div class="preview-images d-flex flex-wrap" id="previewContainer"></div>
+                    </div>
+                    <small class="text-muted" id="counterText">0 / 5 uploaded</small>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-success py-2 px-4 fs-5" onclick="window.location.href='admin_index.html'">Cancel</button>
+                    <button id="saveBtn" type="submit" class="btn btn-success py-2 px-4 fs-5">Save Changes</button>
+                </div>
+            </form>
+        </div>
+
+        <footer>
+            <p>© 2025 Green Horizon | Building a Greener Tomorrow</p>
+        </footer>
+
+        <script>
+            const uploadBox = document.getElementById('uploadBox');
+            const imageInput = document.getElementById('images');
+            const previewContainer = document.getElementById('previewContainer');
+            const counterText = document.getElementById('counterText');
+            const saveBtn = document.getElementById('saveBtn');
+
+            // Existing images (preloaded)
+            let uploadedImages = [
+                'img/treeplanting.webp',
+                'img/treeplanting2.webp'
+            ];
+
+            // Display preloaded images
+            uploadedImages.forEach(src => addPreview(src, true));
+            updateCounter();
+
+            // "+" box click opens file selector
+            uploadBox.addEventListener('click', () => {
+                if (uploadedImages.length < 5) imageInput.click();
+            });
+
+            // Add selected new image
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (!file) return;
+                if (uploadedImages.length >= 5) {
+                    alert('You can only upload up to 5 pictures.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    addPreview(e.target.result, false);
+                    uploadedImages.push(e.target.result);
+                    updateCounter();
+                    updateUploadState();
+                };
+                reader.readAsDataURL(file);
+                this.value = '';
+            });
+
+            // Add image preview with remove button
+            function addPreview(src, isExisting) {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('position-relative', 'me-2', 'mb-2');
+
+                const img = document.createElement('img');
+                img.src = src;
+                wrapper.appendChild(img);
+
+                const removeBtn = document.createElement('button');
+                removeBtn.innerHTML = '×';
+                removeBtn.classList.add('btn', 'btn-sm', 'btn-danger', 'position-absolute');
+                removeBtn.style.top = '5px';
+                removeBtn.style.right = '5px';
+                removeBtn.style.borderRadius = '50%';
+                removeBtn.style.padding = '2px 8px';
+                removeBtn.addEventListener('click', () => {
+                    previewContainer.removeChild(wrapper);
+                    uploadedImages = uploadedImages.filter(i => i !== src);
+                    updateCounter();
+                    updateUploadState();
+                });
+
+                wrapper.appendChild(removeBtn);
+                previewContainer.appendChild(wrapper);
+            }
+
+            function updateCounter() {
+                counterText.textContent = `${uploadedImages.length} / 5 uploaded`;
+            }
+
+            function updateUploadState() {
+                if (uploadedImages.length >= 5) {
+                    uploadBox.style.opacity = '0.5';
+                    uploadBox.style.pointerEvents = 'none';
+                } else {
+                    uploadBox.style.opacity = '1';
+                    uploadBox.style.pointerEvents = 'auto';
+                }
+            }
+
+            // Save changes
+            saveBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert("✅ Post updated successfully!");
+                window.location.href = "admin_index.html";
+            });
+        </script>
+    </body>
+</html>
